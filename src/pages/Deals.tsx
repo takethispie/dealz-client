@@ -6,7 +6,7 @@ import DealCard from 'components/DealCard';
 import { Deal } from 'models/Deal';
 
 const Deals: React.FC = () => {
-  let d: Deal = new Deal("0", "test", "this is a test deal", "https://www.boulanger.com/ref/1123891", "assets/images/samsung-tv.webp");
+  let d: Deal = new Deal("0", "test", "this is a test deal", "https://www.boulanger.com/ref/1123891", "assets/images/samsung-tv.webp", 10);
   return (
     <IonPage>
       <IonHeader>
