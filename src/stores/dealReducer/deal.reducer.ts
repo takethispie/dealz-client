@@ -1,0 +1,29 @@
+import { DealState } from "./deal.state"
+import { DealsActionTypes, DEALS_LOAD, DEALS_LOAD_SUCCESS, DEALS_LOAD_ERROR, DEAL_SELECT, DEAL_UNSELECT, DEALS_RESET_PAGINATION } from "./deal.actions"
+
+export const defaultAuthState: DealState  = {
+  Deals: [],
+  SelectedDeal: null,
+  ErrorMessage: "",
+  IsLoading: false,
+  Page: 0
+}
+
+export function authReducer(state: DealState = defaultAuthState, action: DealsActionTypes): DealState {
+  switch (action.type) {
+    case DEALS_LOAD:
+      return { ...state, IsLoading: true }
+    case DEALS_LOAD_SUCCESS:
+      return { ...state, Deals: action.payload.deals, IsLoading: false, Page: state.Page++ }
+    case DEALS_LOAD_ERROR:
+      return { ...state, ErrorMessage: action.payload.message, IsLoading: false }
+    case DEALS_RESET_PAGINATION:
+      return {...state, Page: 0}
+    case DEAL_SELECT:
+      return { ...state, SelectedDeal: action.payload.selected }
+    case DEAL_UNSELECT:
+      return { ...state, SelectedDeal: null };
+    default:
+      return state
+  }
+}
