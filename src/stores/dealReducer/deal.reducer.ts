@@ -1,7 +1,7 @@
 import { DealState } from "./deal.state"
 import { DealsActionTypes, DEALS_LOAD, DEALS_LOAD_SUCCESS, DEALS_LOAD_ERROR, DEAL_SELECT, DEAL_UNSELECT, DEALS_RESET_PAGINATION } from "./deal.actions"
 
-export const defaultAuthState: DealState  = {
+export const defaultDealsState: DealState  = {
   Deals: [],
   SelectedDeal: null,
   ErrorMessage: "",
@@ -9,7 +9,7 @@ export const defaultAuthState: DealState  = {
   Page: 0
 }
 
-export function authReducer(state: DealState = defaultAuthState, action: DealsActionTypes): DealState {
+export function DealsReducer(state: DealState = defaultDealsState, action: DealsActionTypes): DealState {
   switch (action.type) {
     case DEALS_LOAD:
       return { ...state, IsLoading: true }

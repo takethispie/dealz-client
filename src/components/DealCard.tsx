@@ -1,12 +1,12 @@
 import React from 'react';
 import './DealCard.css';
 import { Deal } from 'models/Deal';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg, IonButton, IonToolbar, IonButtons, IonBadge, IonLabel, IonIcon } from '@ionic/react';
-import { bookOutline } from 'ionicons/icons';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg, IonButton, IonToolbar, IonButtons, IonBadge } from '@ionic/react';
 
 interface DealCardProps {
   Deal: Deal
 }
+
 
 const DealCard: React.FC<DealCardProps> = ({ Deal }) => {
   return (

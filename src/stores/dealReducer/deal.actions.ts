@@ -7,8 +7,11 @@ export const DEALS_RESET_PAGINATION = "DEALS_RESET_PAGINATION";
 export const DEAL_SELECT = "DEAL_SELECT";
 export const DEAL_UNSELECT = "DEAL_UNSELECT";
 
-interface DealsLoad {
+interface LoadDeals {
     type: typeof DEALS_LOAD;
+    payload: {
+        page: number
+    }
 }
 
 interface DealsLoadSuccess {
@@ -18,26 +21,56 @@ interface DealsLoadSuccess {
     }
 }
 
-interface DealsLoadError {
+interface LoadDealsError {
     type: typeof DEALS_LOAD_ERROR,
     payload: {
         message: string,
     }
 }
 
-interface DealsResetPagination {
+interface ResetDealsPagination {
     type: typeof DEALS_RESET_PAGINATION;
 }
 
-interface DealSelect {
+interface SelectDeal {
     type: typeof DEAL_SELECT,
     payload: {
         selected: Deal
     }
 }
 
-interface DealUnselect {
+interface UnselectDeal {
     type: typeof DEAL_UNSELECT
 }
 
-export type DealsActionTypes = DealsLoad | DealsLoadSuccess | DealsLoadError | DealsResetPagination | DealSelect | DealUnselect;
+export type DealsActionTypes = LoadDeals | DealsLoadSuccess | LoadDealsError | ResetDealsPagination | SelectDeal | UnselectDeal;
+
+
+export function LoadDeals(page: number): DealsActionTypes {
+    return {
+        type: DEALS_LOAD,
+        payload: {
+            page: page
+        }
+    }
+} 
+
+
+export function LoadDealsError(errorMessage: string): DealsActionTypes {
+    return {
+        type: DEALS_LOAD_ERROR,
+        payload: {
+            message: errorMessage
+        }
+    }
+}
+
+
+export function LoadDealsSuccess(deals: Deal[]): DealsActionTypes {
+    return {
+        type: DEALS_LOAD_SUCCESS,
+        payload: {
+            deals
+        }
+    }
+}

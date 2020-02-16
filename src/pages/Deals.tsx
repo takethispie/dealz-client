@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './Deals.css';
 import DealCard from 'components/DealCard';
-import { Deal } from 'models/Deal';
+import { DealState } from 'stores/dealReducer/deal.state';
+import { connect, ConnectedProps } from 'react-redux';
+import { ThunkLoadDeals } from 'stores/dealReducer/deal.thunk';
 
-const Deals: React.FC = () => {
-  let d: Deal = new Deal("0", "test", "this is a test deal", "https://www.boulanger.com/ref/1123891", "assets/images/samsung-tv.webp", 10);
+const mapState = (state: DealState) => ({
+  deals: state.Deals,
+  loading: state.IsLoading,
+  errorMessage: state.ErrorMessage,
+  page: state.Page
+})
+
+const mapDispatch = {
+  loadDeals: ThunkLoadDeals
+}
+
+const connector = connect(
+  mapState,
+  mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, errorMessage}) => {
+  useEffect(() => {
+    loadDeals(page)
+  }, [loadDeals, page]);
+
   return (
     <IonPage>
       <IonHeader>
@@ -23,7 +45,11 @@ const Deals: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol sizeSm="12" sizeXs="12" sizeLg="4">
-              <DealCard Deal={d}></DealCard>
+              {
+                deals.map(deal => (
+                  <DealCard Deal={deal}></DealCard>
+                ))
+              }
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -32,4 +58,4 @@ const Deals: React.FC = () => {
   );
 };
 
-export default Deals;
+export default connector(Deals);
