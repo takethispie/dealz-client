@@ -7,12 +7,12 @@ import { defaultDealsState, DealsReducer } from './dealReducer/deal.reducer';
 
 export const defaultRootState = {
     authReducer: defaultAuthState,
-    dealsReducer: defaultDealsState
+    DealsReducer: defaultDealsState
 }
 
-const rootReducer = combineForms({
-    authReducer,
-    DealsReducer
+export const rootReducer = combineReducers({
+    authReducer: authReducer,
+    dealReducer: DealsReducer
 })
 
-export default rootReducer
+export type RootState = ReturnType<typeof rootReducer>

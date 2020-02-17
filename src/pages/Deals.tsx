@@ -5,13 +5,16 @@ import DealCard from 'components/DealCard';
 import { DealState } from 'stores/dealReducer/deal.state';
 import { connect, ConnectedProps } from 'react-redux';
 import { ThunkLoadDeals } from 'stores/dealReducer/deal.thunk';
+import { RootState } from 'stores/root.reducer';
 
-const mapState = (state: DealState) => ({
-  deals: state.Deals,
-  loading: state.IsLoading,
-  errorMessage: state.ErrorMessage,
-  page: state.Page
-})
+const mapState = (state: RootState) => { 
+  console.log(state);
+  return {
+  deals: state.dealReducer.Deals,
+  loading: state.dealReducer.IsLoading,
+  errorMessage: state.dealReducer.ErrorMessage,
+  page: state.dealReducer.Page
+}}
 
 const mapDispatch = {
   loadDeals: ThunkLoadDeals
