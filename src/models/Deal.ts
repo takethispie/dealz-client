@@ -1,4 +1,6 @@
 import { Vote } from "./Vote";
+import { User } from "./User";
+import { DateTime } from 'luxon';
 
 export class Deal {
     public VoteFromUser: Vote
@@ -11,7 +13,8 @@ export class Deal {
     public Image: string,
     public Upvotes: number,
     public Price: number,
-    public Created: Date
+    public Created: DateTime,
+    public Author: User
   ) {
       this.VoteFromUser = Vote.None;
   }

@@ -11,12 +11,15 @@ import {
   IonToolbar,
   IonButtons,
   IonBadge,
-  IonCardSubtitle
+  IonCardSubtitle,
+  IonIcon,
+  IonLabel
 } from "@ionic/react";
 import { ThunkVoteDeal } from "stores/dealReducer/deal.thunk";
 import { connect, ConnectedProps } from "react-redux";
 import { RootState } from "stores/root.reducer";
 import { Vote } from "models/Vote";
+import { personOutline } from "ionicons/icons";
 
 interface DealCardProps {
   deal: Deal;
@@ -74,6 +77,8 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
       <IonCardContent>
         <p>{deal.Description}</p>
         <IonToolbar>
+          <IonIcon icon={personOutline}></IonIcon> 
+          {" " + deal.Author.Nickname}
           <IonButtons slot="end">
             <IonButton color="primary" href={deal.Url}>
               Voir le Deal

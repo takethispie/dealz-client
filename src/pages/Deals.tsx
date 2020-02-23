@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol, IonButtons, IonButton, IonIcon } from '@ionic/react';
 import './Deals.css';
 import DealCard from 'components/DealCard';
 import { DealState } from 'stores/dealReducer/deal.state';
 import { connect, ConnectedProps } from 'react-redux';
 import { ThunkLoadDeals, ThunkVoteDeal } from 'stores/dealReducer/deal.thunk';
 import { RootState } from 'stores/root.reducer';
+import { addOutline } from 'ionicons/icons';
 
 const mapState = (state: RootState) => { 
   return {
@@ -37,6 +38,12 @@ const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, erro
       <IonHeader>
         <IonToolbar>
           <IonTitle>Tout les Deals</IonTitle>
+          <IonButtons slot="primary">
+            <IonButton fill="solid" color="primary">
+              <IonIcon icon={addOutline}></IonIcon>
+              Poster
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent>
