@@ -10,7 +10,8 @@ export class Deal {
     public Url: string,
     public Image: string,
     public Upvotes: number,
-    public Price: number
+    public Price: number,
+    public Created: Date
   ) {
       this.VoteFromUser = Vote.None;
   }

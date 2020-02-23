@@ -41,7 +41,6 @@ type Props = PropsFromRedux & DealCardProps;
 const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
 
   function DoVote(vote: Vote) {
-    console.log("test");
     voteDeal(deal.Id, vote, deals);
   }
 
@@ -53,7 +52,7 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
       </IonCardHeader>
       <IonImg src={deal.Image}></IonImg>
       <IonToolbar>
-        <p style={{ paddingLeft: "10px" }}>24/01/2020 13:10</p>
+        <p style={{ paddingLeft: "10px" }}>{deal.Created.toLocaleString()}</p>
         <IonButtons slot="end">
           <IonButton color={deal.VoteFromUser == Vote.Down ? "primary" : "medium"} onClick={() => {
             DoVote(Vote.Down);

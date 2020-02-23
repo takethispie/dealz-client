@@ -47,13 +47,13 @@ const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, erro
         </IonHeader>
         <IonGrid>
           <IonRow>
-            <IonCol sizeSm="12" sizeXs="12" sizeLg="3">
               {
                 deals.map(deal => (
-                  <DealCard deal={deal}></DealCard>
+                  <IonCol sizeSm="12" sizeXs="12" sizeLg="3">
+                    <DealCard deal={deal}></DealCard>
+                  </IonCol>
                 ))
               }
-            </IonCol>
           </IonRow>
         </IonGrid>
       </IonContent>
