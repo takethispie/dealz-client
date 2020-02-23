@@ -1,27 +1,68 @@
-export const AUTH_OPEN = 'AUTH_OPEN';
-export const AUTH_CLOSE = 'AUTH_CLOSE';
-export const AUTH_CONNECTED = 'AUTH_CONNECTED';
-export const AUTH_INVALID = 'AUTH_INVALID';
-export const AUTH_DISCONNECTED = 'AUTH_DISCONNECTED';
+import { User } from "models/User";
+import { Credentials } from "models/Credentials";
 
-interface AuthOpen {
-  type: typeof AUTH_OPEN
+export const AUTH_LOGIN = "AUTH_LOGIN";
+export const AUTH_LOGIN_SUCCESS = "AUTH_LOGIN_SUCCESS";
+export const AUTH_LOGIN_ERROR = "AUTH_LOGIN_ERROR";
+
+export const AUTH_LOGOUT = "AUTH_LOGOUT"
+
+interface AuthLogin {
+    type: typeof AUTH_LOGIN,
+    payload: {
+        credentials: Credentials
+    }
 }
 
-interface AuthClose {
-    type: typeof AUTH_CLOSE
+interface AuthLoginSuccess {
+    type: typeof AUTH_LOGIN_SUCCESS,
+    payload: {
+        user: User
+    }
 }
 
-interface AuthConnected {
-    type: typeof AUTH_CONNECTED
+interface AuthLoginError {
+    type: typeof AUTH_LOGIN_ERROR,
+    payload: {
+        errorMessage: string
+    }
 }
 
-interface AuthInvalid {
-    type: typeof AUTH_INVALID
+interface AuthLogout {
+    type: typeof AUTH_LOGOUT
 }
 
-interface AuthDisconnected {
-    type: typeof AUTH_DISCONNECTED
+export type AuthActionTypes = AuthLogin | AuthLoginSuccess | AuthLoginError | AuthLogout;
+
+export function LoginAction(credentials: Credentials): AuthActionTypes {
+    return {
+        type: AUTH_LOGIN,
+        payload: {
+            credentials
+        }
+    }
 }
 
-export type AuthActionTypes = AuthOpen | AuthClose | AuthConnected | AuthInvalid | AuthDisconnected;
+export function LoginSuccessAction(user: User): AuthActionTypes {
+    return {
+        type: AUTH_LOGIN_SUCCESS,
+        payload: {
+            user
+        }
+    }
+}
+
+export function LoginErrorAction(errorMessage: string): AuthActionTypes {
+    return {
+        type: AUTH_LOGIN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+}
+
+export function LogoutAction(): AuthActionTypes {
+    return {
+        type: AUTH_LOGOUT
+    }
+}

@@ -1,3 +1,10 @@
+import { User } from "models/User";
+
 export class AuthState {
-    constructor(public isConnected: boolean, public isOpened: boolean, public isInvalid: boolean) {}
+  constructor(
+    public IsConnected: boolean,
+    public IsOpened: boolean,
+    public IsInvalid: boolean,
+    public ConnectedUser: User | null
+  ) {}
 }

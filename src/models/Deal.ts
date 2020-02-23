@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 
 export class Deal {
     public VoteFromUser: Vote
+    public Expired: boolean;
 
   constructor(
     public Id: string,
@@ -17,5 +18,6 @@ export class Deal {
     public Author: User
   ) {
       this.VoteFromUser = Vote.None;
+      this.Expired = false;
   }
 }

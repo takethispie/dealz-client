@@ -8,6 +8,18 @@ export const DealWithPaging = async (page: number) => {
   //const response = await getAxios().get("/user/offers/" + page);
   //return response.data;
   let author = new User("0", "jeanjako", DateTime.local(2019, 10, 10));
+  let dealWithUserVote = new Deal(
+    "2",
+    "test 3",
+    "this is a test deal",
+    "https://www.boulanger.com/ref/1123891",
+    "assets/images/samsung-tv.webp",
+    -100,
+    713.3,
+    DateTime.local(2020, 10, 10, 14, 30),
+    author
+  );
+  dealWithUserVote.VoteFromUser = Vote.Down;
   let deals = [
     new Deal(
       "0",
@@ -30,7 +42,8 @@ export const DealWithPaging = async (page: number) => {
       1400,
       DateTime.local(2010, 3, 10, 14, 30),
       author
-    )
+    ),
+    dealWithUserVote
   ];
   return Promise.resolve(deals);
 };

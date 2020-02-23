@@ -57,18 +57,18 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
       <IonToolbar>
         <p style={{ paddingLeft: "10px" }}>{deal.Created.toLocaleString()}</p>
         <IonButtons slot="end">
-          <IonButton color={deal.VoteFromUser == Vote.Down ? "primary" : "medium"} onClick={() => {
+          <IonButton color={deal.VoteFromUser == Vote.Down ? "primary" : "medium"} disabled={deal.Expired} onClick={() => {
             DoVote(Vote.Down);
           }}>-</IonButton>
           {deal.Upvotes >= 100 ? (
             <IonBadge color="danger">{deal.Upvotes}</IonBadge>
-          ) : deal.Upvotes < -100 ? (
+          ) : deal.Upvotes < 0 ? (
             <IonBadge color="primary">{deal.Upvotes}</IonBadge>
           ) : (
             <IonBadge color="warning">{deal.Upvotes}</IonBadge>
           )}
 
-          <IonButton color={deal.VoteFromUser == Vote.Up ? "danger" : "medium"} onClick={() => {
+          <IonButton color={deal.VoteFromUser == Vote.Up ? "danger" : "medium"} disabled={deal.Expired} onClick={() => {
             DoVote(Vote.Up);
           }}>+</IonButton>
         </IonButtons>
