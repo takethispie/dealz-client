@@ -7,7 +7,7 @@ import { defaultDealsState, DealsReducer } from './dealReducer/deal.reducer';
 
 export const defaultRootState = {
     authReducer: defaultAuthState,
-    DealsReducer: defaultDealsState
+    dealReducer: defaultDealsState
 }
 
 export const rootReducer = combineReducers({

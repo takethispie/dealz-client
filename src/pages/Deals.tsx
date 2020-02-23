@@ -4,11 +4,10 @@ import './Deals.css';
 import DealCard from 'components/DealCard';
 import { DealState } from 'stores/dealReducer/deal.state';
 import { connect, ConnectedProps } from 'react-redux';
-import { ThunkLoadDeals } from 'stores/dealReducer/deal.thunk';
+import { ThunkLoadDeals, ThunkVoteDeal } from 'stores/dealReducer/deal.thunk';
 import { RootState } from 'stores/root.reducer';
 
 const mapState = (state: RootState) => { 
-  console.log(state);
   return {
   deals: state.dealReducer.Deals,
   loading: state.dealReducer.IsLoading,
@@ -17,7 +16,8 @@ const mapState = (state: RootState) => {
 }}
 
 const mapDispatch = {
-  loadDeals: ThunkLoadDeals
+  loadDeals: ThunkLoadDeals,
+  voteDeal: ThunkVoteDeal
 }
 
 const connector = connect(
@@ -27,7 +27,7 @@ const connector = connect(
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, errorMessage}) => {
+const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, errorMessage, voteDeal}) => {
   useEffect(() => {
     loadDeals(page)
   }, [loadDeals, page]);
@@ -47,10 +47,10 @@ const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, erro
         </IonHeader>
         <IonGrid>
           <IonRow>
-            <IonCol sizeSm="12" sizeXs="12" sizeLg="4">
+            <IonCol sizeSm="12" sizeXs="12" sizeLg="3">
               {
                 deals.map(deal => (
-                  <DealCard Deal={deal}></DealCard>
+                  <DealCard deal={deal}></DealCard>
                 ))
               }
             </IonCol>
