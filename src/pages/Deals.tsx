@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol, IonButtons, IonButton, IonIcon } from '@ionic/react';
+import React, { useEffect, useState } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonRow, IonCol, IonButtons, IonButton, IonIcon, IonModal } from '@ionic/react';
 import './Deals.css';
 import DealCard from 'components/DealCard';
 import { DealState } from 'stores/dealReducer/deal.state';
@@ -7,6 +7,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { ThunkLoadDeals, ThunkVoteDeal } from 'stores/dealReducer/deal.thunk';
 import { RootState } from 'stores/root.reducer';
 import { addOutline } from 'ionicons/icons';
+import NewDeal from 'components/NewDeal';
 
 const mapState = (state: RootState) => { 
   return {
@@ -33,13 +34,15 @@ const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, erro
     loadDeals(page)
   }, [loadDeals, page]);
 
+  const [showNewDealModal, setShowNewDealModal] = useState(false);
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Tout les Deals</IonTitle>
           <IonButtons slot="primary">
-            <IonButton fill="solid" color="primary">
+            <IonButton fill="solid" color="primary" onClick={() => {setShowNewDealModal(true);}}>
               <IonIcon icon={addOutline}></IonIcon>
               Poster
             </IonButton>
@@ -64,6 +67,9 @@ const Deals: React.FC<PropsFromRedux> = ({ deals, loadDeals, loading, page, erro
           </IonRow>
         </IonGrid>
       </IonContent>
+      <IonModal isOpen={showNewDealModal} onDidDismiss={() => {setShowNewDealModal(false);}}>
+        <NewDeal></NewDeal>
+      </IonModal>
     </IonPage>
   );
 };
