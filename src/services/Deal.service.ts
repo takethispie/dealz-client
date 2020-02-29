@@ -52,7 +52,5 @@ export const DoVoteDeal = (dealId: string, vote: Vote) => {
 
 
 export const AddDeal = (deal: Deal) => {
-  deal.Id = (deals.length + 1).toString();
-  deals.push(deal);
-  return Promise.resolve(deals.length.toString());
+  return Promise.resolve((deals.length + 1).toString());
 }

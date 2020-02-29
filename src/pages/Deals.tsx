@@ -105,7 +105,7 @@ const Deals: React.FC<PropsFromRedux> = ({
         <IonGrid>
           <IonRow>
             {deals.map(deal => (
-              <IonCol sizeSm="12" sizeXs="12" sizeLg="3">
+              <IonCol key={deal.Id} sizeSm="12" sizeXs="12" sizeLg="3">
                 <DealCard deal={deal}></DealCard>
               </IonCol>
             ))}
