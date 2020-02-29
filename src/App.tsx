@@ -33,16 +33,43 @@ import './theme/variables.css';
 import Deals from './pages/Deals';
 import MyDeals from './pages/MyDeals';
 import Account from './pages/Account';
+import Login from 'pages/Login';
+import { RootState } from 'stores/root.reducer';
+import { connect } from 'react-redux';
+import { ConnectedProps } from 'react-redux';
+import { ThunkLogin } from 'stores/authReducer/auth.thunk';
 
-const App: React.FC = () => (
+const mapState = (state: RootState) => ({
+  currentUser: state.authReducer.ConnectedUser,
+  showAuthModal: state.authReducer.IsOpen
+});
+
+const mapDispatch = {
+  login: ThunkLogin
+};
+
+const connector = connect(mapState, mapDispatch);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type Props = PropsFromRedux;
+
+const App: React.FC<Props>= ({ currentUser, showAuthModal, login }) => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
+          {/* {
+            currentUser === undefined ? (
+              <Route path="*" component={Login}></Route>
+            ) : (<></>)
+          } */}
           <Route path="/tab1" component={Deals} exact={true} />
           <Route path="/tab2" component={MyDeals} exact={true} />
           <Route path="/tab3" component={Account} />
-          <Route path="/" render={() => <Redirect to="/tab1" />} exact={true} />
+          <Route path="/" render={() => {
+            return <Redirect to="/tab1" />
+          }} exact={true} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
@@ -67,4 +94,4 @@ const App: React.FC = () => (
   </IonApp>
 );
 
-export default App;
+export default connector(App);

@@ -11,31 +11,40 @@ import {
   IonButton
 } from "@ionic/react";
 import { Deal } from "models/Deal";
-import { RootState } from "stores/root.reducer";
-import { connect, ConnectedProps } from "react-redux";
 import { DateTime } from "luxon";
+import { User } from "models/User";
 
-const mapState = (state: RootState) => ({
-    currentUser: state.authReducer.ConnectedUser
-});
+interface props {
+  currentUser?: User;
+  addDeal: (deal: Deal) => void;
+}
 
-const mapDispatch = {};
-
-const connector = connect(mapState, mapDispatch);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-type Props = PropsFromRedux;
-
-const NewDeal: React.FC<Props> = ({ currentUser}) => {
+const NewDeal: React.FC<props>= ({ currentUser, addDeal }) => {
+  if(currentUser === undefined) return (
+    <IonCard>
+      <IonCardContent>
+        <p>Erreur: l'utilisateur n'est pas connecté</p>
+      </IonCardContent>
+    </IonCard>
+  );
   let title: string = "";
   let description: string = "";
   let url: string = "";
   let price: number = 0;
 
   const createDeal = () => {
-        if(currentUser == undefined) return;
-        let newDeal = new Deal("", title, description, url, "", 0, price, DateTime.local(), currentUser);
+    let newDeal = new Deal(
+      "",
+      title,
+      description,
+      url,
+      "",
+      0,
+      price,
+      DateTime.local(),
+      currentUser
+    );
+    addDeal(newDeal);
   };
 
   return (
@@ -60,10 +69,10 @@ const NewDeal: React.FC<Props> = ({ currentUser}) => {
           <IonLabel position="stacked">Prix</IonLabel>
           <IonInput value={price} type="number"></IonInput>
         </IonItem>
-        <IonButton>Creer le deal</IonButton>
+        <IonButton onClick={createDeal}>Creer le deal</IonButton>
       </IonCardContent>
     </IonCard>
   );
 };
 
-export default connector(NewDeal);
+export default NewDeal;

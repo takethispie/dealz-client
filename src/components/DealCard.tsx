@@ -13,7 +13,6 @@ import {
   IonBadge,
   IonCardSubtitle,
   IonIcon,
-  IonLabel
 } from "@ionic/react";
 import { ThunkVoteDeal } from "stores/dealReducer/deal.thunk";
 import { connect, ConnectedProps } from "react-redux";
@@ -57,7 +56,7 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
       <IonToolbar>
         <p style={{ paddingLeft: "10px" }}>{deal.Created.toLocaleString()}</p>
         <IonButtons slot="end">
-          <IonButton color={deal.VoteFromUser == Vote.Down ? "primary" : "medium"} disabled={deal.Expired} onClick={() => {
+          <IonButton color={deal.VoteFromUser === Vote.Down ? "primary" : "medium"} disabled={deal.Expired} onClick={() => {
             DoVote(Vote.Down);
           }}>-</IonButton>
           {deal.Upvotes >= 100 ? (
@@ -68,7 +67,7 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
             <IonBadge color="warning">{deal.Upvotes}</IonBadge>
           )}
 
-          <IonButton color={deal.VoteFromUser == Vote.Up ? "danger" : "medium"} disabled={deal.Expired} onClick={() => {
+          <IonButton color={deal.VoteFromUser === Vote.Up ? "danger" : "medium"} disabled={deal.Expired} onClick={() => {
             DoVote(Vote.Up);
           }}>+</IonButton>
         </IonButtons>

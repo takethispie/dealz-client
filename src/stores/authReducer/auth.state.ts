@@ -4,6 +4,7 @@ export class AuthState {
   constructor(
     public Loading: boolean,
     public ErrorMessage: string,
-    public ConnectedUser?: User
+    public IsOpen: boolean,
+    public ConnectedUser?: User,
   ) {}
 }
