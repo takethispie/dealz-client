@@ -2,7 +2,7 @@ import { AuthState } from "./auth.state";
 import { Credentials } from "models/Credentials";
 import { ThunkAction } from "redux-thunk";
 import { Action } from "redux";
-import { LoginAction, LoginSuccessAction, LoginErrorAction, OpenAuth, CloseAuth } from "./auth.actions";
+import { LoginAction, LoginSuccessAction, LoginErrorAction, OpenAuth, CloseAuth, LogoutAction } from "./auth.actions";
 import { Login } from "services/Auth.service";
 
 export const ThunkLogin = (credentials: Credentials): 
@@ -24,3 +24,7 @@ export const ThunkOpenAuth = (): ThunkAction<void, AuthState, unknown, Action<st
 export const ThunkCloseAuth = (): ThunkAction<void, AuthState, unknown, Action<string>> => async dispatch => {
     dispatch(CloseAuth());
 }
+
+export const ThunkLogout = (): ThunkAction<void, AuthState, unknown, Action<string>> => async dispatch => {
+    dispatch(LogoutAction());
+};

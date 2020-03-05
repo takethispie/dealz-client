@@ -224,3 +224,7 @@ http://ionicframework.com/docs/theming/ */
   }
 
 }
+
+ion-split-pane {
+  --side-max-width: 16rem;
+}
