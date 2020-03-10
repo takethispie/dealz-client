@@ -2,16 +2,10 @@ import React, { useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
   IonSplitPane
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { flaskOutline, personOutline, logOutOutline, logOut } from "ionicons/icons";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -33,12 +27,12 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Deals from "./pages/Deals";
 import MyDeals from "./pages/MyDeals";
-import Account from "./pages/Account";
 import { RootState } from "stores/root.reducer";
 import { connect } from "react-redux";
 import { ConnectedProps } from "react-redux";
 import Menu from "components/Menu";
 import { ThunkLogout } from "stores/authReducer/auth.thunk";
+import Account from "pages/Account";
 
 const mapState = (state: RootState) => ({
   currentUser: state.authReducer.ConnectedUser,
@@ -81,18 +75,26 @@ const App: React.FC<Props> = ({ currentUser, logout }) => {
               }}
               exact={true}
             />
-            {currentUser != undefined? (
-              <Route
-                path="/mydeals"
-                render={props => {
+            <Route
+              path="/mydeals"
+              render={props => {
+                if(currentUser != undefined) {
                   setSelectedPage('mydeals');
                   return <MyDeals/>;
-                }}
-                exact={true}
-              />
-            ) : (
-              <></>
-            )}
+                } else return <Redirect to="/deals" />
+              }}
+              exact={true}
+            />
+            <Route
+              path="/account"
+              render={props => {
+                if(currentUser != undefined) {
+                  setSelectedPage('account');
+                  return <Account/>;
+                } else return <Redirect to="/deals" />
+              }}
+              exact={true}
+            />
             <Route
               path="/"
               render={() => <Redirect to="/deals" />}

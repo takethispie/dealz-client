@@ -79,9 +79,9 @@ const Deals: React.FC<PropsFromRedux> = ({
           <IonTitle>Tout les Deals</IonTitle>
           <IonButtons slot="primary">
             {connectedUser === undefined ? (
-              <IonButton onClick={openAuth}>
+              <IonButton onClick={openAuth} color="primary">
                 <IonIcon icon={logInOutline}></IonIcon>
-                Se connecter
+                connexion
               </IonButton>
             ) : (
               <IonButton fill="solid" color="primary"

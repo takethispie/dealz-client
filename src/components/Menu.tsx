@@ -22,7 +22,7 @@ import { RootState } from "stores/root.reducer";
 import { connect } from "react-redux";
 import { ConnectedProps } from "react-redux";
 
-interface MenuProps extends RouteComponentProps {
+interface MenuProps {
   selectedPage: string;
 }
 
@@ -141,4 +141,4 @@ const Menu: React.FunctionComponent<Props> = ({
   );
 };
 
-export default withRouter(connector(Menu));
+export default connector(Menu);
