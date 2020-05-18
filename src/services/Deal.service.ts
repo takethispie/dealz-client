@@ -14,7 +14,6 @@ let deals = [
     -100,
     713.3,
     DateTime.local(2020, 10, 10, 14, 30),
-    new User("0", "jeanjako", DateTime.local(2019, 10, 10))
   ),
   new Deal(
     "0",
@@ -25,7 +24,6 @@ let deals = [
     10,
     713.3,
     DateTime.local(2020, 10, 10, 14, 30),
-    new User("0", "jeanjako", DateTime.local(2019, 10, 10))
   ),
   new Deal(
     "1",
@@ -36,9 +34,11 @@ let deals = [
     99,
     1400,
     DateTime.local(2010, 3, 10, 14, 30),
-    new User("0", "jeanjako", DateTime.local(2019, 10, 10))
   ),
-];
+  ].map(d => { 
+    d.Author = new User("0", "jeanjako", DateTime.local(2019, 10, 10));
+    return d; 
+  });
 
 export const DealWithPaging = async (page: number) => {
   //const response = await getAxios().get("/user/offers/" + page);

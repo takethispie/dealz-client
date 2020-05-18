@@ -83,6 +83,7 @@ ThunkAction<void, DealState, unknown, Action<string>> => async dispatch => {
         dispatch(CreateDeal(deal));
         const response = await AddDeal(deal);
         deal.Id = response;
+        deal.Image = "assets/images/nopic.jpg"
         dispatch(CreateDealSuccess(deal));
     } catch (error) {
         dispatch(CreateDealError("Erreur lors de la création du deal"));

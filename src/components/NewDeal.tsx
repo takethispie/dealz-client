@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IonCard,
   IonCardHeader,
@@ -20,6 +20,8 @@ interface props {
 }
 
 const NewDeal: React.FC<props>= ({ currentUser, addDeal }) => {
+  const [newDeal, setDeal] = useState(new Deal("", "", "", "", "", 0, 0, DateTime.local()));
+
   if(currentUser === undefined) return (
     <IonCard>
       <IonCardContent>
@@ -27,23 +29,10 @@ const NewDeal: React.FC<props>= ({ currentUser, addDeal }) => {
       </IonCardContent>
     </IonCard>
   );
-  let title: string = "";
-  let description: string = "";
-  let url: string = "";
-  let price: number = 0;
 
   const createDeal = () => {
-    let newDeal = new Deal(
-      "",
-      title,
-      description,
-      url,
-      "",
-      0,
-      price,
-      DateTime.local(),
-      currentUser
-    );
+    setDeal({...newDeal, Author: currentUser});
+    console.log(newDeal);
     addDeal(newDeal);
   };
 
@@ -55,19 +44,31 @@ const NewDeal: React.FC<props>= ({ currentUser, addDeal }) => {
       <IonCardContent>
         <IonItem>
           <IonLabel position="stacked">Titre</IonLabel>
-          <IonInput value={title}></IonInput>
+          <IonInput value={newDeal.Title}
+            onIonChange={e =>
+              setDeal({ ...newDeal, Title: e.detail.value! })
+            } ></IonInput>
         </IonItem>
         <IonItem>
           <IonLabel position="stacked">Description</IonLabel>
-          <IonTextarea value={description} rows={3}></IonTextarea>
+          <IonTextarea value={newDeal.Description}
+            onIonChange={e =>
+              setDeal({ ...newDeal, Description: e.detail.value! })
+            } rows={3}></IonTextarea>
         </IonItem>
         <IonItem>
           <IonLabel position="stacked">Lien vers le deal</IonLabel>
-          <IonInput value={url}></IonInput>
+          <IonInput value={newDeal.Url}
+            onIonChange={e =>
+              setDeal({ ...newDeal, Url: e.detail.value! })
+            }></IonInput>
         </IonItem>
         <IonItem>
           <IonLabel position="stacked">Prix</IonLabel>
-          <IonInput value={price} type="number"></IonInput>
+          <IonInput value={newDeal.Price}
+            onIonChange={e =>
+              setDeal({ ...newDeal, Price: Number.parseFloat(e.detail.value!)})
+            } type="number"></IonInput>
         </IonItem>
         <IonButton onClick={createDeal}>Creer le deal</IonButton>
       </IonCardContent>

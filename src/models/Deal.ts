@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 export class Deal {
     public VoteFromUser: Vote
     public Expired: boolean;
+    public Author?: User
 
   constructor(
     public Id: string,
@@ -15,7 +16,6 @@ export class Deal {
     public Upvotes: number,
     public Price: number,
     public Created: DateTime,
-    public Author: User
   ) {
       this.VoteFromUser = Vote.None;
       this.Expired = false;

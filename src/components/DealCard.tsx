@@ -77,7 +77,7 @@ const DealCard: React.FC<Props> = ({ deal, voteDeal, deals }) => {
         <p>{deal.Description}</p>
         <IonToolbar>
           <IonIcon icon={personOutline}></IonIcon> 
-          {" " + deal.Author.Nickname}
+          {" " + deal.Author?.Nickname}
           <IonButtons slot="end">
             <IonButton color="primary" href={deal.Url}>
               Voir le Deal
