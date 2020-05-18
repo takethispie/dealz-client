@@ -11,7 +11,8 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
-  IonModal
+  IonModal,
+  IonSearchbar
 } from "@ionic/react";
 import "./Deals.css";
 import DealCard from "components/DealCard";
@@ -27,6 +28,7 @@ import NewDeal from "components/NewDeal";
 import { ThunkOpenAuth, ThunkCloseAuth, ThunkLogin } from "stores/authReducer/auth.thunk";
 import { OpenAuth, CloseAuth } from "stores/authReducer/auth.actions";
 import Login from "./Login";
+import { Deal } from "models/Deal";
 
 const mapState = (state: RootState) => {
   return {
@@ -72,11 +74,16 @@ const Deals: React.FC<PropsFromRedux> = ({
 
   const [showNewDealModal, setShowNewDealModal] = useState(false);
 
+  const addDealAndHideModal = (deal: Deal) => {
+    addDeal(deal);
+    setShowNewDealModal(false);
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tout les Deals</IonTitle>
+          <IonTitle>Tous les Deals</IonTitle>
           <IonButtons slot="primary">
             {connectedUser === undefined ? (
               <IonButton onClick={openAuth} color="primary">
@@ -94,6 +101,9 @@ const Deals: React.FC<PropsFromRedux> = ({
               </IonButton>
             )}
           </IonButtons>
+        </IonToolbar>
+        <IonToolbar color="light">
+          <IonSearchbar debounce={200}></IonSearchbar>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -118,7 +128,7 @@ const Deals: React.FC<PropsFromRedux> = ({
           setShowNewDealModal(false);
         }}
       >
-        <NewDeal addDeal={addDeal} currentUser={connectedUser}></NewDeal>
+        <NewDeal addDeal={addDealAndHideModal} currentUser={connectedUser}></NewDeal>
       </IonModal>
       <IonModal isOpen={showAuthModal} onDidDismiss={closeAuth}>
         <Login login={login}></Login>
